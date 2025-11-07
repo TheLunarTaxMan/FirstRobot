@@ -62,7 +62,6 @@ public class test1 extends LinearOpMode {
                 }
             }
             if (this.gamepad1.right_stick_button) HopperServo.setPosition(0.5);
-            if (this.gamepad1.right_bumper) AutoTest();
             tgtPower = -this.gamepad1.left_stick_y;
             tgtPowerx = -this.gamepad1.left_stick_x;
             motorR.setPower(tgtPower + tgtPowerx);
@@ -75,13 +74,5 @@ public class test1 extends LinearOpMode {
             telemetry.addLine("press triangle to wave, press square to spin the feeder. left stick to move and pressing the right stick ");
             telemetry.update();
         }
-    }
-    public void AutoTest()
-    {
-        motorR.setPower(0.5);
-        motorL.setPower(-0.5);
-        sleep(1000);
-        motorR.setPower(0);
-        motorL.setPower(0);
     }
 }
