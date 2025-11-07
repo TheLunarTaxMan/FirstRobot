@@ -72,6 +72,7 @@ public class test1 extends LinearOpMode {
             telemetry.addData("Servo position", HopperServo.getPosition());
             telemetry.addData("Servo open", servoOpen);
             telemetry.addData("Status", "Running");
+            telemetry.addLine("press triangle to wave, press square to spin the feeder. left stick to move and pressing the right stick ");
             telemetry.update();
         }
     }
