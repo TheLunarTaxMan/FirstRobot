@@ -9,9 +9,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
-
-
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 
 @TeleOp
@@ -21,22 +19,22 @@ public class test1 extends LinearOpMode {
     private DcMotor motorR;
     private DcMotor motorL;
     private DcMotor HopperMotor;
+    private DcMotor Flywheel;
     private Servo HopperServo;
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
-    private Servo servoTest;
 
 
     @Override
     public void runOpMode() {
-        //imu = hardwareMap.get(Gyroscope.class, "imu");
+        imu = hardwareMap.get(Gyroscope.class, "imu");
         motorR = hardwareMap.get(DcMotor.class, "motorR");
         motorL = hardwareMap.get(DcMotor.class, "motorL");
         HopperMotor = hardwareMap.get(DcMotor.class, "HopperMotor");
+        Flywheel = hardwareMap.get(DcMotor.class, "Flywheel");
         HopperServo = hardwareMap.get(Servo.class, "HopperServo");
         //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
-        //servoTest = hardwareMap.get(Servo.class, "servoTest");
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -61,6 +59,14 @@ public class test1 extends LinearOpMode {
                     servoOpen = true;
                 }
             }
+
+            if (this.gamepad1.right_trigger != 0)
+            {
+                Flywheel.setPower(1);
+                sleep(1000);
+                Flywheel.setPower(0);
+
+            }
             if (this.gamepad1.right_stick_button) HopperServo.setPosition(0.5);
             tgtPower = -this.gamepad1.left_stick_y;
             tgtPowerx = -this.gamepad1.left_stick_x;
@@ -71,6 +77,7 @@ public class test1 extends LinearOpMode {
             telemetry.addData("Servo position", HopperServo.getPosition());
             telemetry.addData("Servo open", servoOpen);
             telemetry.addData("Status", "Running");
+            telemetry.addData("IMU", imu.getAngularVelocity(AngleUnit.RADIANS));
             telemetry.addLine("press triangle to wave, press square to spin the feeder. left stick to move and pressing the right stick ");
             telemetry.update();
         }
