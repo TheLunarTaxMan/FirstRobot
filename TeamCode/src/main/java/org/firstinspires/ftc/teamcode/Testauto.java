@@ -28,13 +28,13 @@ public class Testauto extends LinearOpMode{
     public void runOpMode() {
         motorR = hardwareMap.get(DcMotor.class, "motorR");
         motorL = hardwareMap.get(DcMotor.class, "motorL");
-
-
         motorR.setPower(0.5);
         motorL.setPower(-0.5);
         sleep(2000);
-        motorR.setPower(0);
+        motorR.setPower(0.5);
+        motorL.setPower(0.5);
+        sleep(1000);
         motorL.setPower(0);
-
+        motorR.setPower(0);
     }
 }
