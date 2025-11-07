@@ -65,7 +65,6 @@ public class test1 extends LinearOpMode {
                 Flywheel.setPower(1);
                 sleep(1000);
                 Flywheel.setPower(0);
-
             }
             if (this.gamepad1.right_stick_button) HopperServo.setPosition(0.5);
             tgtPower = -this.gamepad1.left_stick_y;
@@ -78,7 +77,7 @@ public class test1 extends LinearOpMode {
             telemetry.addData("Servo open", servoOpen);
             telemetry.addData("Status", "Running");
             telemetry.addData("IMU", imu.getAngularVelocity(AngleUnit.RADIANS));
-            telemetry.addLine("press triangle to wave, press square to spin the feeder. left stick to move and pressing the right stick ");
+            telemetry.addLine("press triangle to wave, right trigger for flywheel, press square to spin the feeder. left stick to move and pressing the right stick ");
             telemetry.update();
         }
     }

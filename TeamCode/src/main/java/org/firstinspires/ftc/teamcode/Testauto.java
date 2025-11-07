@@ -20,6 +20,7 @@ public class Testauto extends LinearOpMode{
     private DcMotor motorR;
     private DcMotor motorL;
     private DcMotor HopperMotor;
+    private DcMotor Flywheel;
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
     private Servo servoTest;
@@ -28,6 +29,7 @@ public class Testauto extends LinearOpMode{
     public void runOpMode() {
         motorR = hardwareMap.get(DcMotor.class, "motorR");
         motorL = hardwareMap.get(DcMotor.class, "motorL");
+        Flywheel = hardwareMap.get(DcMotor.class, "Flywheel");
         motorR.setPower(0.5);
         motorL.setPower(-0.5);
         sleep(2000);
@@ -36,5 +38,8 @@ public class Testauto extends LinearOpMode{
         sleep(1000);
         motorL.setPower(0);
         motorR.setPower(0);
+        Flywheel.setPower(1);
+        sleep(1000);
+        Flywheel.setPower(0);
     }
 }
