@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp
 
-public class test1 extends LinearOpMode {
+public class test26 extends LinearOpMode {
     private Gyroscope imu;
     private DcMotor motorR;
     private DcMotor motorL;

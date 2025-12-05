@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class MecaumIdea extends LinearOpMode {
+public class Mecanum26 extends LinearOpMode {
     public DcMotor frontRightWheel;
     public DcMotor frontLeftWheel;
     public DcMotor backRightWheel;
