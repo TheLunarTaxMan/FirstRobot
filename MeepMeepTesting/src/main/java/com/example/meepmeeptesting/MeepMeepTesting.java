@@ -7,6 +7,7 @@ import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
 public class MeepMeepTesting {
     public static void main(String[] args) {
+        System.setProperty("sun.java2d.opengl", "true");
         MeepMeep meepMeep = new MeepMeep(800);
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
@@ -18,14 +19,14 @@ public class MeepMeepTesting {
                 .lineToX(30)
                 .turn(Math.toRadians(90))
                 .lineToY(30)
-                .turn(Math.toRadians(90))
+                .turn(Math.toRadians(450))
                 .lineToX(0)
                 .turn(Math.toRadians(90))
                 .lineToY(0)
                 .turn(Math.toRadians(90))
                 .build());
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_POWERPLAY_OFFICIAL)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)
