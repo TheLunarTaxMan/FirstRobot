@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Trajectory;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,8 +13,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
 public class RoadRunnerTest26 extends LinearOpMode {
-    private DcMotor motorL;
-    private DcMotor motorR;
     private DcMotor HopperMotor;
     private DigitalChannel digitalTouch;
     private DistanceSensor sensorColorRange;
@@ -18,15 +20,11 @@ public class RoadRunnerTest26 extends LinearOpMode {
 
 
     public void runOpMode() {
-        motorR = hardwareMap.get(DcMotor.class, "motorR");
-        motorL = hardwareMap.get(DcMotor.class, "motorL");
-        motorR.setPower(0.5);
-        motorL.setPower(-0.5);
-        sleep(2000);
-        motorR.setPower(0.5);
-        motorL.setPower(0.5);
-        sleep(1000);
-        motorL.setPower(0);
-        motorR.setPower(0);
+
+        Pose2d initialPos = new Pose2d(0, 0, Math.toRadians(90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
+
+        TrajectoryActionBuilder intialTrajectory = drive.actionBuilder(initialPos);
+
     }
 }
