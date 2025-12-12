@@ -12,10 +12,10 @@ public class Mecanum26 extends LinearOpMode {
     @Override
     public void runOpMode()
     {
-        frontRightWheel = hardwareMap.get(DcMotor.class, "FRWheel");
-        frontLeftWheel = hardwareMap.get(DcMotor.class, "FLWheel");
-        backRightWheel = hardwareMap.get(DcMotor.class, "BRWheel");
-        backLeftWheel = hardwareMap.get(DcMotor.class, "BLWHEEL");
+        frontRightWheel = hardwareMap.get(DcMotor.class, "rightFront");
+        frontLeftWheel = hardwareMap.get(DcMotor.class, "leftFront");
+        backRightWheel = hardwareMap.get(DcMotor.class, "rightBack");
+        backLeftWheel = hardwareMap.get(DcMotor.class, "rightFront");
         waitForStart();
         double Strafe = 0;
         double Forward = 0;
