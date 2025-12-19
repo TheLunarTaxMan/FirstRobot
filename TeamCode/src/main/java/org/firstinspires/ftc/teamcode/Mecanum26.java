@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@TeleOp
 public class Mecanum26 extends LinearOpMode {
     public DcMotor frontRightWheel;
     public DcMotor frontLeftWheel;
@@ -15,16 +18,17 @@ public class Mecanum26 extends LinearOpMode {
         frontRightWheel = hardwareMap.get(DcMotor.class, "rightFront");
         frontLeftWheel = hardwareMap.get(DcMotor.class, "leftFront");
         backRightWheel = hardwareMap.get(DcMotor.class, "rightBack");
-        backLeftWheel = hardwareMap.get(DcMotor.class, "rightFront");
+        backLeftWheel = hardwareMap.get(DcMotor.class, "leftBack");
         waitForStart();
         double Strafe = 0;
         double Forward = 0;
         double Rotation = 0;
+        backLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         while (opModeIsActive())
         {
             Forward = this.gamepad1.left_stick_y;
             Strafe = this.gamepad1.left_stick_x;
-            Rotation = this.gamepad1.right_stick_x;
+            Rotation = -this.gamepad1.right_stick_x;
             frontRightWheel.setPower(Forward - Rotation - Strafe);
             backRightWheel.setPower(Forward - Rotation + Strafe);
             frontLeftWheel.setPower(Forward + Rotation + Strafe);
