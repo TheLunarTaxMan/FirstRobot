@@ -17,12 +17,15 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(56, 0, -Math.PI))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-40,40) , Math.PI * 2/ 3)
+                        .waitSeconds(21)
+                        .strafeToLinearHeading(new Vector2d(-40,40) , Math.PI * 2/ 3)
+
                 .strafeTo(new Vector2d(10,-10))
+
+
                 .strafeToSplineHeading(new Vector2d(-20,20), Math.PI/2)
-                .splineTo(new Vector2d(10,0), 10.0)
-                .lineToXSplineHeading(30 , Math.PI/2 )
+                        .splineTo(new Vector2d(10,0), 10.0)
+                        .lineToXSplineHeading(30 , Math.PI/2 )
                 .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
