@@ -32,6 +32,8 @@ public class test26 extends LinearOpMode {
         motorL = hardwareMap.get(DcMotor.class, "motorL");
         HopperMotor = hardwareMap.get(DcMotor.class, "HopperMotor");
         Flywheel = hardwareMap.get(DcMotor.class, "Flywheel");
+
+
         HopperServo = hardwareMap.get(Servo.class, "HopperServo");
         //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
