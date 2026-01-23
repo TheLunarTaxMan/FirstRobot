@@ -177,7 +177,6 @@ public final class TuningOpModes {
                 } else {
                     throw new RuntimeException("unknown localizer: " + md.localizer.getClass().getName());
                 }
-
                 return new DriveView(
                     DriveType.MECANUM,
                         MecanumDrive.PARAMS.inPerTick,
