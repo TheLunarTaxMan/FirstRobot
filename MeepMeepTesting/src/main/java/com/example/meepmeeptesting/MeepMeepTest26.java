@@ -29,15 +29,18 @@ public class MeepMeepTest26 {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, 12, -Math.PI))
                 .waitSeconds(2)
-                .splineTo(new Vector2d(-35,35), 15)
-                .turnTo(3*Math.PI/4)
-
+//                .splineTo(new Vector2d(-35,35), 15)
+//                .turnTo(3*Math.PI/4)
+                                .splineToConstantHeading(new Vector2d(-35,35), 3*Math.PI/4)
+                                .turnTo(3*Math.PI/4)
+                //shoot
                         .waitSeconds(5)
+                        .strafeToLinearHeading(new Vector2d(-11, 20), Math.PI/2)
+                //reload
+                        .strafeTo(new Vector2d(-11, 52))
 
-                        .splineTo(new Vector2d(56, 54), -5)
-                        .turnTo(-Math.PI)
-                        .strafeTo(new Vector2d(57, 57))
-                        .waitSeconds(5)
+                .strafeToLinearHeading(new Vector2d(-35, 35), 3*Math.PI/4)
+                //shoot again
                 .build()
         );
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)

@@ -19,9 +19,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class test26 extends LinearOpMode {
 //    private Gyroscope imu;
-//    private DcMotor motorR;
-//    private DcMotor motorL;
-//    private DcMotor HopperMotor;
+public DcMotor frontRightWheel;
+    public DcMotor frontLeftWheel;
+    public DcMotor backRightWheel;
+    public DcMotor backLeftWheel;
     private DcMotorEx Flywheel;
 //    private Servo HopperServo;
 //    private DigitalChannel digitalTouch;
@@ -31,9 +32,10 @@ public class test26 extends LinearOpMode {
     @Override
     public void runOpMode() {
 //        imu = hardwareMap.get(Gyroscope.class, "imu");
-//        motorR = hardwareMap.get(DcMotor.class, "motorR");
-//        motorL = hardwareMap.get(DcMotor.class, "motorL");
-//        HopperMotor = hardwareMap.get(DcMotor.class, "HopperMotor");
+        frontRightWheel = hardwareMap.get(DcMotor.class, "rightFront");
+        frontLeftWheel = hardwareMap.get(DcMotor.class, "leftFront");
+        backRightWheel = hardwareMap.get(DcMotor.class, "rightBack");
+        backLeftWheel = hardwareMap.get(DcMotor.class, "leftBack");
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
 //        HopperServo = hardwareMap.get(Servo.class, "HopperServo");
         //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
@@ -51,11 +53,20 @@ public class test26 extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
 
+        boolean fast = true;
         while (opModeIsActive()) {
-           Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger)*1800);
-
-
+            if (fast) {
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+            }
+            else {
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 900);
+            }
+            if (gamepad1.leftBumperWasPressed())
+            {
+                fast = !fast;
+            }
             telemetry.addData("Current position", Flywheel.getCurrentPosition());
+            telemetry.addData("it fast?", fast);
 
             telemetry.update();
         }
