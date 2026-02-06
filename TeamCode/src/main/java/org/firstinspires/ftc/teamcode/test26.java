@@ -24,6 +24,8 @@ public DcMotor frontRightWheel;
     public DcMotor backRightWheel;
     public DcMotor backLeftWheel;
     private DcMotorEx Flywheel;
+
+    private DcMotor HopperMotor;
 //    private Servo HopperServo;
 //    private DigitalChannel digitalTouch;
 //    private DistanceSensor sensorColorRange;
@@ -37,6 +39,8 @@ public DcMotor frontRightWheel;
         backRightWheel = hardwareMap.get(DcMotor.class, "rightBack");
         backLeftWheel = hardwareMap.get(DcMotor.class, "leftBack");
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
+        HopperMotor = hardwareMap.get(DcMotor.class, "HopperMotor");
+
 //        HopperServo = hardwareMap.get(Servo.class, "HopperServo");
         //digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //sensorColorRange = hardwareMap.get(DistanceSensor.class, "sensorColorRange");
@@ -54,7 +58,18 @@ public DcMotor frontRightWheel;
         // run until the end of the match (driver presses STOP)
 
         boolean fast = true;
+        boolean HopperMotorOn= false;
         while (opModeIsActive()) {
+            if(this.gamepad1.xWasPressed()){
+                if (HopperMotorOn) {
+                    HopperMotor.setPower(0);
+                    HopperMotorOn = false;
+                }else {
+                    HopperMotor.setPower(0.8);
+                    HopperMotorOn = true;
+                }
+            }
+
             if (fast) {
                 Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 2700);
             }
