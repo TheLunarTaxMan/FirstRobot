@@ -45,8 +45,8 @@ public DcMotor frontRightWheel;
         telemetry.update();
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-        double P = 2.5;
-        double F = 0.5;
+        double P = 40;
+        double F = 1;
 
         PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0.1, 0.2, F);
         Flywheel.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
@@ -56,16 +56,17 @@ public DcMotor frontRightWheel;
         boolean fast = true;
         while (opModeIsActive()) {
             if (fast) {
-                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 2700);
             }
             else {
-                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 900);
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
             }
             if (gamepad1.leftBumperWasPressed())
             {
                 fast = !fast;
             }
             telemetry.addData("Current position", Flywheel.getCurrentPosition());
+            telemetry.addData("Current velocity", Flywheel.getVelocity());
             telemetry.addData("it fast?", fast);
 
             telemetry.update();
