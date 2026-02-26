@@ -71,10 +71,11 @@ public DcMotor frontRightWheel;
             }
 
             if (fast) {
-                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 2700);
+                //Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+                Flywheel.setPower((gamepad1.right_trigger - gamepad1.left_trigger));
             }
             else {
-                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 3000);
             }
             if (gamepad1.leftBumperWasPressed())
             {

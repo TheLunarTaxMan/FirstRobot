@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -37,5 +40,14 @@ public class RoadRunnerTest26 extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-20,-30),-Math.PI/2)
                 .splineTo(new Vector2d(20,10),2);
 
+        Action movement = drive.actionBuilder(initialPos)
+                .strafeTo(new Vector2d(0,0))
+                .build();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        movement
+                        
+                ));
     }
 }
