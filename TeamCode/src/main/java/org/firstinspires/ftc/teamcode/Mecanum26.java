@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -15,6 +16,8 @@ public class Mecanum26 extends LinearOpMode {
 
     private DcMotor HopperMotor;
 
+    private DcMotorEx Flywheel;
+
     private Servo HopperServo;
 
     @Override
@@ -26,6 +29,8 @@ public class Mecanum26 extends LinearOpMode {
         backLeftWheel = hardwareMap.get(DcMotor.class, "leftBack");
         HopperMotor = hardwareMap.get(DcMotor.class, "HopperMotor");
         HopperServo = hardwareMap.get(Servo.class, "HopperServo");
+        Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
+
         waitForStart();
         double Strafe = 0;
         double Forward = 0;
@@ -34,6 +39,7 @@ public class Mecanum26 extends LinearOpMode {
         frontLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         boolean HopperMotorOn= false;
         boolean HopperServoUp = false;
+        boolean fast = true;
         while (opModeIsActive())
         {
             Forward = this.gamepad1.left_stick_y;
@@ -53,7 +59,7 @@ public class Mecanum26 extends LinearOpMode {
                 frontLeftWheel.setPower(Forward + Rotation + Strafe);
                 backLeftWheel.setPower(Forward + Rotation - Strafe);
             //}
-            /*if (this.gamepad1.rightBumperWasPressed()){
+            if (this.gamepad1.rightBumperWasPressed()){
                 if (HopperServoUp) {
                     HopperServo.setPosition(1);
                 }else{
@@ -61,8 +67,19 @@ public class Mecanum26 extends LinearOpMode {
                 }
                 HopperServoUp = !HopperServoUp;
 
-            }*/
+            }
 
+            if (fast) {
+                //Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+                Flywheel.setPower((gamepad1.right_trigger - gamepad1.left_trigger));
+            }
+            else {
+                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 3000);
+            }
+            if (gamepad1.leftBumperWasPressed())
+            {
+                fast = !fast;
+            }
 
             if(this.gamepad1.leftBumperWasPressed()){
                 if (HopperMotorOn) {
