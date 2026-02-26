@@ -39,7 +39,7 @@ public class Mecanum26 extends LinearOpMode {
             Forward = this.gamepad1.left_stick_y;
             Strafe = this.gamepad1.left_stick_x;
             Rotation = -this.gamepad1.right_stick_x;
-            if (this.gamepad1.a){
+            /*if (this.gamepad1.a){
                 frontLeftWheel.setPower(0.4);
             } else if (this.gamepad1.x) {
                 frontRightWheel.setPower(0.4);
@@ -47,13 +47,13 @@ public class Mecanum26 extends LinearOpMode {
                 backRightWheel.setPower(0.4);
             }else if (this.gamepad1.b){
                 backLeftWheel.setPower(0.4);
-            }else {
+            }else {*/
                 frontRightWheel.setPower(Forward - Rotation - Strafe);
                 backRightWheel.setPower(Forward - Rotation + Strafe);
                 frontLeftWheel.setPower(Forward + Rotation + Strafe);
                 backLeftWheel.setPower(Forward + Rotation - Strafe);
-            }
-            if (this.gamepad1.rightBumperWasPressed()){
+            //}
+            /*if (this.gamepad1.rightBumperWasPressed()){
                 if (HopperServoUp) {
                     HopperServo.setPosition(1);
                 }else{
@@ -61,7 +61,7 @@ public class Mecanum26 extends LinearOpMode {
                 }
                 HopperServoUp = !HopperServoUp;
 
-            }
+            }*/
 
 
             if(this.gamepad1.leftBumperWasPressed()){
