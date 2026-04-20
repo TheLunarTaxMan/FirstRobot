@@ -63,7 +63,7 @@ public final class MecanumDrive {
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD;
 
         // drive model parameters
-        public double inPerTick = 0.0190597204574333;
+        public double inPerTick = 0.038155;
         public double lateralInPerTick = 0.0206967919972404;
         public double trackWidthTicks = 1679.7966656105446;
 
@@ -139,7 +139,7 @@ public final class MecanumDrive {
 
             rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
             leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-            rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+
             this.pose = pose;
         }
 

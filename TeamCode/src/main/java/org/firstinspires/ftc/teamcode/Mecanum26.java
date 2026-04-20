@@ -85,73 +85,72 @@ public class Mecanum26 extends LinearOpMode {
         backLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
         boolean HopperMotorOn= false;
-        boolean fast = true;
+        boolean fast = false;
+        boolean flywheelon = false;
         ElapsedTime ArmTimer = new ElapsedTime();
-        while (opModeIsActive())
-        {
+        while (opModeIsActive()) {
             Forward = this.gamepad1.left_stick_y;
             Strafe = this.gamepad1.left_stick_x;
             Rotation = -this.gamepad1.right_stick_x;
-            if (this.gamepad1.a){
-                frontLeftWheel.setVelocity(-1000);
-            } else if (this.gamepad1.x) {
-                frontRightWheel.setVelocity(-1000);
-            }else if (this.gamepad1.y){
-                backRightWheel.setVelocity(-1000);
-            }else if (this.gamepad1.b){
-                backLeftWheel.setVelocity(-1000);
-            }else {
-            frontRightWheel.setVelocity((Forward - Rotation - (Strafe*1))*2800);
-            backRightWheel.setVelocity((Forward - Rotation + (Strafe*1))*2800);
-            frontLeftWheel.setVelocity((Forward + Rotation + (Strafe*1))*2800);
-            backLeftWheel.setVelocity((Forward + Rotation - (Strafe*1))*2800);
-            }
 
-            if (this.gamepad1.rightBumperWasPressed()){
-                HopperServo.setPosition(0.8);
+            frontRightWheel.setVelocity((Forward - Rotation - (Strafe * 1)) * 2800);
+            backRightWheel.setVelocity((Forward - Rotation + (Strafe * 1)) * 2800);
+            frontLeftWheel.setVelocity((Forward + Rotation + (Strafe * 1)) * 2800);
+            backLeftWheel.setVelocity((Forward + Rotation - (Strafe * 1)) * 2800);
+
+
+            if (this.gamepad1.rightBumperWasPressed() ) {
+                HopperServo.setPosition(0.85);
                 ArmTimer.reset();
             }
-            if (ArmTimer.milliseconds() > 800){
+            if (ArmTimer.milliseconds() > 800) {
                 HopperServo.setPosition(1);
             }
-            Flywheel.setPower((gamepad1.right_trigger - gamepad1.left_trigger));
-/*
-            if (fast) {
-                //Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
-                Flywheel.setPower((gamepad1.right_trigger - gamepad1.left_trigger));
+
+
+            if (flywheelon){
+                if (fast) {
+                    //Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
+                    Flywheel.setVelocity((1) * 850);
+                } else {
+                    Flywheel.setVelocity((1) * 750);
+                }
+            }else{
+                Flywheel.setVelocity(0);
             }
-            else {
-                Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 3000);
+            if (gamepad1.xWasPressed()) {
+                fast = true;
             }
-            if (gamepad1.leftBumperWasPressed())
-            {
-                fast = !fast;
-            }*/
+            if (gamepad1.yWasPressed()){
+                fast = false;
+            }
+            if (gamepad1.bWasPressed()) {
+                flywheelon = !flywheelon;
+            }
+
 
             if (this.gamepad1.dpadDownWasPressed())
             {
               //  TruffleShuffle();
             }
-
-            if(this.gamepad1.leftBumperWasPressed()){
-                if (HopperMotorOn) {
-                    HopperMotor.setPower(0);
-                    HopperMotorOn = false;
-                }else {
-                    HopperMotor.setPower(1);
-                    HopperMotorOn = true;
-                }
+            if(this.gamepad1.left_trigger > 0.2){
+                HopperMotor.setPower(-1);
+            }else if (this.gamepad1.right_trigger > 0.2){
+                HopperMotor.setPower(1);
+            }else{
+                HopperMotor.setPower(0);
             }
+
 
             telemetry.addData("FWD", Forward);
             telemetry.addData("STR", Strafe);
             telemetry.addData("ROT", Rotation);
-            telemetry.addData("is fast?",fast);
+            telemetry.addData("FWS", Flywheel.getVelocity());
+            telemetry.addData("isfast", fast);
             telemetry.addData("BLS", backLeftWheel.getVelocity());
             telemetry.addData("BRS", backRightWheel.getVelocity());
             telemetry.addData("FLS", frontLeftWheel.getVelocity());
             telemetry.addData("FRS", frontRightWheel.getVelocity());
-            telemetry.addData("Left stick for axis movement, right stick for rotation", ' ');
             telemetry.addData("Hopper servo" , HopperServo.getPosition());
             updateTelemetry(telemetry);
         }
