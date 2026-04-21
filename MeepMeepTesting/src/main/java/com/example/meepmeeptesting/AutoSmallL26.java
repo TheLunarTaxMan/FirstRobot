@@ -19,13 +19,13 @@ public class AutoSmallL26 {
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, -12, Math.PI))
                         .waitSeconds(2)
-                        .splineToLinearHeading(new Pose2d(-35,-35, -3*Math.PI/4), -3*Math.PI/4)
+                        .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4)
                         //shoot
                         .waitSeconds(5)
                         .strafeToLinearHeading(new Vector2d(-11, -20), -Math.PI/2)
                         //reload
-                        .strafeTo(new Vector2d(-11, -52))
-                        .strafeToLinearHeading(new Vector2d(-35, -35), -3*Math.PI/4)
+                        .strafeTo(new Vector2d(-11, -32))
+//                        .strafeToLinearHeading(new Vector2d(-35, -35), -3*Math.PI/4)
                         //shoot again
                         .build()
         );
