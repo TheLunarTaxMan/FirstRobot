@@ -31,8 +31,8 @@ public class ShootyMcTest26 extends LinearOpMode {
     private DistanceSensor sensorColorRange;
 
 
-    public double HighVelocity = 1500;
-    public double LowVelocity = 800;
+    public double HighVelocity = 850;
+    public double LowVelocity = 750;
     public double TargetVelocity = HighVelocity;
     public double P = 0;
     public double F = 0;
