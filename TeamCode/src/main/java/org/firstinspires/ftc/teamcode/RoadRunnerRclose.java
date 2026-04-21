@@ -6,22 +6,18 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
-public class RoadRunnerTest26 extends LinearOpMode {
+public class RoadRunnerRclose extends LinearOpMode {
     private DcMotorEx Flywheel;
     private DcMotorEx HopperMotor;
     private Servo HopperServo;
@@ -30,7 +26,7 @@ public class RoadRunnerTest26 extends LinearOpMode {
 
 
     public  class FlyWheelclass {
-        int flywheelspeed = 850;
+        int flywheelspeed = 800;
 
         public FlyWheelclass(){
 
@@ -67,9 +63,9 @@ public class RoadRunnerTest26 extends LinearOpMode {
                 sleep(1000);
 
                 HopperMotor.setPower(-1);
-                sleep(300);
+                sleep(400);
                 HopperMotor.setPower(1);
-                sleep(100);
+                sleep(1000);
                 HopperServo.setPosition(0.8);
                 sleep(600);
                 HopperServo.setPosition(1);
@@ -79,14 +75,14 @@ public class RoadRunnerTest26 extends LinearOpMode {
                 HopperMotor.setPower(0);
                 HopperServo.setPosition(1);
 
-                return(true);
+                return(false);
             }
         }
     }
 
     public void runOpMode() {
 
-        Pose2d initialPos = new Pose2d(0, 0, Math.toRadians(90));
+        Pose2d initialPos = new Pose2d(-49, -49, 0.12+ 5*Math.PI/4);
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
         HopperMotor = hardwareMap.get(DcMotorEx.class, "HopperMotor");
@@ -123,8 +119,6 @@ public class RoadRunnerTest26 extends LinearOpMode {
                         movement
                         ,fw.shootThree()
                         ,moveagain
-                        ,trajectoryActionCloseOut
-                        ,fw.end()
 
                 ));
         return;
