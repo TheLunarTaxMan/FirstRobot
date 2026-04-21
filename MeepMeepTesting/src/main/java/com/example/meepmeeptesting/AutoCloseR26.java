@@ -6,27 +6,28 @@ import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class AutoSmallR26 {
+public class AutoCloseR26 {
     public static void main(String[] args)
     {
         System.setProperty("sun.java2d.opengl", "true");
         MeepMeep meepMeep = new MeepMeep(800);
+
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, 12, -Math.PI))
-            .waitSeconds(2)
-                        .splineToLinearHeading(new Pose2d(-12,12, 3*Math.PI/4), 3*Math.PI/4)
-            //shoot
-            .waitSeconds(5)
-                        .strafeToLinearHeading(new Vector2d(-11, 20), Math.PI/2)
-            //reload
-            .strafeTo(new Vector2d(-11, 32))
-//            .strafeToLinearHeading(new Vector2d(-35, 35), 3*Math.PI/4)
-            //shoot again
-            .build()
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, -12, Math.PI))
+                        .waitSeconds(2)
+                        .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4)
+                        //shoot
+                        .waitSeconds(5)
+                        .strafeToLinearHeading(new Vector2d(-11, -20), -Math.PI/2)
+                        //reload
+                        .strafeTo(new Vector2d(-11, -32))
+//                        .strafeToLinearHeading(new Vector2d(-35, -35), -3*Math.PI/4)
+                        //shoot again
+                        .build()
         );
         meepMeep.setBackground(MeepMeep.Background.FIELD_DECODE_JUICE_DARK)
                 .setDarkMode(true)
