@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
-public class RoadRunnerRclose extends LinearOpMode {
+public class RoadRunnerRfar extends LinearOpMode {
     private DcMotorEx Flywheel;
     private DcMotorEx HopperMotor;
     private Servo HopperServo;
@@ -82,7 +82,7 @@ public class RoadRunnerRclose extends LinearOpMode {
 
     public void runOpMode() {
 
-        Pose2d initialPos = new Pose2d(-49, 49, 0.12- 5*Math.PI/4);
+        Pose2d initialPos = new Pose2d(62, 12, -Math.PI);
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
         HopperMotor = hardwareMap.get(DcMotorEx.class, "HopperMotor");
