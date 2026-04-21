@@ -17,7 +17,7 @@ public class AutoCloseR26 {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(62, -12, Math.PI))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-49, -49, 0.12+ 5*Math.PI/4))
                         .waitSeconds(2)
                         .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4)
                         //shoot
