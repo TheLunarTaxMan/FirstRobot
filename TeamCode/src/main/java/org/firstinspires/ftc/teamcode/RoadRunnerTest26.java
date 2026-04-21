@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp
+@Autonomous
 public class RoadRunnerTest26 extends LinearOpMode {
     private DcMotorEx Flywheel;
     private DcMotorEx HopperMotor;
@@ -34,6 +34,17 @@ public class RoadRunnerTest26 extends LinearOpMode {
 
         public FlyWheelclass(){
 
+        }
+
+        public Action end() {return new End();}
+
+        public class End implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                sleep(30000000);
+                return false;
+            }
         }
         public Action shootThree() { return new ShootThree(); }
         public class ShootThree implements Action {
@@ -71,40 +82,6 @@ public class RoadRunnerTest26 extends LinearOpMode {
                 return(true);
             }
         }
-
-
-        public void TestyThing()
-        {
-
-            Flywheel.setVelocity(flywheelspeed);
-            HopperServo.setPosition(1);
-            HopperMotor.setPower(0);
-            sleep(2000);
-            HopperServo.setPosition(0.8);
-            sleep(800);
-            HopperServo.setPosition(1);
-            sleep(1000);
-
-            HopperServo.setPosition(0.8);
-            sleep(600);
-            HopperServo.setPosition(1);
-            sleep(1000);
-
-            HopperMotor.setPower(-1);
-            sleep(300);
-            HopperMotor.setPower(1);
-            sleep(100);
-            HopperServo.setPosition(0.8);
-            sleep(600);
-            HopperServo.setPosition(1);
-            sleep(1000);
-
-            Flywheel.setVelocity(0);
-            HopperMotor.setPower(0);
-            HopperServo.setPosition(1);
-
-
-        }
     }
 
     public void runOpMode() {
@@ -117,9 +94,11 @@ public class RoadRunnerTest26 extends LinearOpMode {
 
         FlyWheelclass fw = new FlyWheelclass();
         waitForStart();
-        Action movement = drive.actionBuilder(initialPos)
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos)
                 .waitSeconds(2)
-                .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4)
+                .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4);
+
+        Action movement = tab1
                 .build();
 
         Action moveagain =  drive.actionBuilder(initialPos)
@@ -132,11 +111,22 @@ public class RoadRunnerTest26 extends LinearOpMode {
                 //shoot again
                 .build();
 
+        Action trajectoryActionCloseOut = tab1.endTrajectory().fresh()
+                .strafeTo(new Vector2d(48, 12))
+                .build();
+
+        if (isStopRequested()) return;
+
+
         Actions.runBlocking(
                 new SequentialAction(
                         movement
                         ,fw.shootThree()
                         ,moveagain
+                        ,trajectoryActionCloseOut
+                        ,fw.end()
+
                 ));
+        return;
     }
 }
