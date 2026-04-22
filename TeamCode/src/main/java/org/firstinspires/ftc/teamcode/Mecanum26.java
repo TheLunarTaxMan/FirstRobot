@@ -14,44 +14,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 public class Mecanum26 extends LinearOpMode {
- /*   public class Motor26{
-        DcMotorEx motor;
-        double Ki;
-        double Kd;
-        double Kp;
-
-        double reference;
-
-        double integralSum = 0;
-
-        double lastError = 0;
-        ElapsedTime timer = new ElapsedTime();
-        Motor26(DcMotorEx Inmotor){
-            motor = Inmotor;
-        }
-
-        void loop(){
-            // obtain the encoder position
-            double encoderPosition = motor.getVelocity();
-            // calculate the error
-            double error = reference - encoderPosition;
-
-            // rate of change of the error
-            double derivative = (error - lastError) / timer.seconds();
-
-            // sum of all error over time
-            integralSum = integralSum + (error * timer.seconds());
-
-            double out = (Kp * error) + (Ki * integralSum) + (Kd * derivative);
-
-            motor.setPower(out);
-
-            lastError = error;
-
-            // reset the timer for next time
-            timer.reset();
-        }
-    }*/
     public DcMotorEx frontRightWheel;
     public DcMotorEx frontLeftWheel;
     public DcMotorEx backRightWheel;
@@ -63,6 +25,17 @@ public class Mecanum26 extends LinearOpMode {
 
     private Servo HopperServo;
 
+    private double Ki = 1;
+    private double Kd = 1;
+    private double Kp = 1;
+
+    private int reference = 850;
+
+    double lastError = 0;
+
+    double integralSum = 0;
+
+    ElapsedTime timer = new ElapsedTime();
     @Override
     public void runOpMode()
     {
@@ -111,7 +84,23 @@ public class Mecanum26 extends LinearOpMode {
             if (flywheelon){
                 if (fast) {
                     //Flywheel.setVelocity((gamepad1.right_trigger - gamepad1.left_trigger) * 1800);
-                    Flywheel.setVelocity((1) * 850);
+                    //Flywheel.setVelocity((1) * 850);
+
+                    double speed = Flywheel.getVelocity();
+                    // calculate the error
+                    double error = reference - speed;
+
+                    double derivative = (error - lastError) / timer.seconds();
+
+                    // sum of all error over time
+                     integralSum = integralSum + (error * timer.seconds());
+
+                    double out = (Kp * error) + (Ki * integralSum) + (Kd * derivative);
+
+                    Flywheel.setPower(out);
+
+                    timer.reset();
+
                 } else {
                     Flywheel.setVelocity((1) * 750);
                 }
