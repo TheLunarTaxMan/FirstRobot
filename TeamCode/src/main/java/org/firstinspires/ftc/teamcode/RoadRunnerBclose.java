@@ -82,7 +82,7 @@ public class RoadRunnerBclose extends LinearOpMode {
 
     public void runOpMode() {
 
-        Pose2d initialPos = new Pose2d(-49, 49, 0.12- 5*Math.PI/4);
+        Pose2d initialPos = new Pose2d(-49, -49, 0.12+ 5*Math.PI/4);
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
         HopperMotor = hardwareMap.get(DcMotorEx.class, "HopperMotor");
@@ -92,7 +92,7 @@ public class RoadRunnerBclose extends LinearOpMode {
         waitForStart();
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos)
                 .waitSeconds(2)
-                .splineToLinearHeading(new Pose2d(-12,12, 3*Math.PI/4), -3*Math.PI/4);
+                .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4);
 
         Action movement = tab1
                 .build();
@@ -100,16 +100,14 @@ public class RoadRunnerBclose extends LinearOpMode {
         Action moveagain =  drive.actionBuilder(initialPos)
                 //shoot
                 .waitSeconds(5)
-                .strafeToLinearHeading(new Vector2d(-11, 20), Math.PI/2)
+                .strafeToLinearHeading(new Vector2d(-11, -20), -Math.PI/2)
                 //reload
-                .strafeTo(new Vector2d(-11, 32))
+                .strafeTo(new Vector2d(-11, -32))
 //                        .strafeToLinearHeading(new Vector2d(-35, -35), -3*Math.PI/4)
                 //shoot again
                 .build();
 
-        Action trajectoryActionCloseOut = tab1.endTrajectory().fresh()
-                .strafeTo(new Vector2d(48, -12))
-                .build();
+
 
         if (isStopRequested()) return;
 

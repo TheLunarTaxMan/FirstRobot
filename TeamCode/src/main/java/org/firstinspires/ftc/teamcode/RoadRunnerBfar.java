@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous
-public class RoadRunnerRclose extends LinearOpMode {
+public class RoadRunnerBfar extends LinearOpMode {
     private DcMotorEx Flywheel;
     private DcMotorEx HopperMotor;
     private Servo HopperServo;
@@ -65,7 +65,7 @@ public class RoadRunnerRclose extends LinearOpMode {
                 HopperMotor.setPower(-1);
                 sleep(400);
                 HopperMotor.setPower(1);
-                sleep(1000);
+                sleep(800);
                 HopperServo.setPosition(0.8);
                 sleep(600);
                 HopperServo.setPosition(1);
@@ -82,7 +82,7 @@ public class RoadRunnerRclose extends LinearOpMode {
 
     public void runOpMode() {
 
-        Pose2d initialPos = new Pose2d(-49, 49, 0.12- 5*Math.PI/4);
+        Pose2d initialPos = new Pose2d(62, -12, Math.PI);
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPos);
         Flywheel = hardwareMap.get(DcMotorEx.class, "Flywheel");
         HopperMotor = hardwareMap.get(DcMotorEx.class, "HopperMotor");
@@ -90,22 +90,22 @@ public class RoadRunnerRclose extends LinearOpMode {
 
         FlyWheelclass fw = new FlyWheelclass();
         waitForStart();
-        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos)
-                .waitSeconds(2)
-                .splineToLinearHeading(new Pose2d(-12,12, 3*Math.PI/4), 3*Math.PI/4);
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPos).waitSeconds(2)
+                .splineToLinearHeading(new Pose2d(-12,-12, -3*Math.PI/4), -3*Math.PI/4);
+
 
         Action movement = tab1
                 .build();
 
         Action moveagain =  drive.actionBuilder(initialPos)
-                //shoot
                 .waitSeconds(5)
-                .strafeToLinearHeading(new Vector2d(-11, 20), Math.PI/2)
+                .strafeToLinearHeading(new Vector2d(-11, -20), -Math.PI/2)
                 //reload
-                .strafeTo(new Vector2d(-11, 32))
+                .strafeTo(new Vector2d(-11, -32))
 //                        .strafeToLinearHeading(new Vector2d(-35, -35), -3*Math.PI/4)
                 //shoot again
                 .build();
+
 
 
         if (isStopRequested()) return;
@@ -116,6 +116,7 @@ public class RoadRunnerRclose extends LinearOpMode {
                         movement
                         ,fw.shootThree()
                         ,moveagain
+
 
                 ));
         return;
